@@ -33,7 +33,7 @@ class IDEC(object):
                  n_clusters=10,
                  alpha=1.0,
                  batch_size=256,
-                 pretrain_epochs=1000):
+                 pretrain_epochs=2000):
 
         super(IDEC, self).__init__()
 
@@ -104,12 +104,12 @@ class IDEC(object):
         self.model.get_layer(name='clustering').set_weights([kmeans.cluster_centers_])
 
         # logging file
-        import csv, os
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
-        logfile = file(save_dir + '/idec_log.csv', 'wb')
-        logwriter = csv.DictWriter(logfile, fieldnames=['iter', 'acc', 'nmi', 'ari', 'L', 'Lc', 'Lr'])
-        logwriter.writeheader()
+        #import csv, os
+        #if not os.path.exists(save_dir):
+        #    os.makedirs(save_dir)
+        #logfile = open(save_dir + '/idec_log.csv', 'wb')
+        #logwriter = csv.DictWriter(logfile, fieldnames=['iter', 'acc', 'nmi', 'ari', 'L', 'Lc', 'Lr'])
+        #logwriter.writeheader()
 
         loss = [0, 0, 0]
         index = 0
@@ -128,14 +128,14 @@ class IDEC(object):
                     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
                     loss = np.round(loss, 5)
                     logdict = dict(iter=ite, acc=acc, nmi=nmi, ari=ari, L=loss[0], Lc=loss[1], Lr=loss[2])
-                    logwriter.writerow(logdict)
+                    #logwriter.writerow(logdict)
                     print('Iter', ite, ': Acc', acc, ', nmi', nmi, ', ari', ari, '; loss=', loss)
 
                 # check stop criterion
                 if ite > 0 and delta_label < tol:
                     print('delta_label ', delta_label, '< tol ', tol)
                     print('Reached tolerance threshold. Stopping training.')
-                    logfile.close()
+                    #logfile.close()
                     break
 
             # train on batch
@@ -158,7 +158,7 @@ class IDEC(object):
             ite += 1
 
         # save the trained model
-        logfile.close()
+        #logfile.close()
         print('saving model to:', save_dir + '/IDEC_model_final.h5')
         self.model.save_weights(save_dir + '/IDEC_model_final.h5')
         
