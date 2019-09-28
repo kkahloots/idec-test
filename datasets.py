@@ -120,3 +120,15 @@ def load_reuters(data_path='./data/reuters'):
     y = y.reshape((y.size,))
     print('REUTERSIDF10K samples', x.shape)
     return x, y
+
+
+def load_cats_vs_dogs():
+    # the data, shuffled and split between train and test sets
+    from keras.datasets import cats_vs_dogs
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    x = np.concatenate((x_train, x_test))
+    y = np.concatenate((y_train, y_test))
+    x = x.reshape((x.shape[0], -1))
+    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    print('cats_vs_dogs samples', x.shape)
+    return x, y
