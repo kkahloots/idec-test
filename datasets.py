@@ -90,7 +90,7 @@ def load_CatsVsDogs():
     #x = np.divide(x, 50.)  # normalize as it does in DEC paper
     
     # Construct a tf.data.Dataset
-    dataset = tfds.load(name="mnist", split=tfds.Split.TRAIN)
+    dataset = tfds.load(name="cats_vs_dogs", split=tfds.Split.TRAIN)
 
     # Build your input pipeline
     dataset = dataset.shuffle(1024).batch(32).prefetch(tf.data.experimental.AUTOTUNE)
