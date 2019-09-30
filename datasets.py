@@ -76,9 +76,13 @@ def load_mnist():
     print('MNIST samples', x.shape)
     return x, y
 
+import tensorflow as tf
+import tensorflow_datasets as tfds
+
 def load_CatsVsDogs():
     # the data, shuffled and split between train and test sets
-    from tensorflow.datasets import cats_vs_dogs
+    # from tensorflow.datasets import cats_vs_dogs
+    cats_vs_dogs = tfds.load(name="cats_vs_dogs", split=tfds.Split.TRAIN)
     (x_train, y_train), (x_test, y_test) = cats_vs_dogs.load_data()
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
