@@ -78,7 +78,7 @@ def load_mnist():
 
 def load_CatsVsDogs():
     # the data, shuffled and split between train and test sets
-    from tensorflow_datasetskeras.datasets import cats_vs_dogs
+    from tensorflow.datasets import cats_vs_dogs
     (x_train, y_train), (x_test, y_test) = cats_vs_dogs.load_data()
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
