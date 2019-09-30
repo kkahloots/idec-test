@@ -83,13 +83,23 @@ def load_CatsVsDogs():
     # the data, shuffled and split between train and test sets
     # from tensorflow.datasets import cats_vs_dogs
     cats_vs_dogs = tfds.load(name="cats_vs_dogs", split=tfds.Split.TRAIN)
-    (x_train, y_train), (x_test, y_test) = cats_vs_dogs.load_data()
-    x = np.concatenate((x_train, x_test))
-    y = np.concatenate((y_train, y_test))
-    x = x.reshape((x.shape[0], -1))
-    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    #(x_train, y_train), (x_test, y_test) = cats_vs_dogs.load_data()
+    #x = np.concatenate((x_train, x_test))
+    #y = np.concatenate((y_train, y_test))
+    #x = x.reshape((x.shape[0], -1))
+    #x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    
+    # Construct a tf.data.Dataset
+    dataset = tfds.load(name="mnist", split=tfds.Split.TRAIN)
+
+    # Build your input pipeline
+    dataset = dataset.shuffle(1024).batch(32).prefetch(tf.data.experimental.AUTOTUNE)
+    for features in dataset.take(1):
+     image, label = features["image"], features["label"]
+    
     print('CatsVsDogs samples', x.shape)
-    return x, y
+    
+    return image, label
 
 
 def load_usps(data_path='./data/usps'):
