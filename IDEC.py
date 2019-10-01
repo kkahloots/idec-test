@@ -33,7 +33,7 @@ class IDEC(object):
                  n_clusters=10,
                  alpha=1.0,
                  batch_size=256,
-                 pretrain_epochs=2000):
+                 pretrain_epochs=1000):
 
         super(IDEC, self).__init__()
 
