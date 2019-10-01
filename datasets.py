@@ -80,7 +80,7 @@ def load_mnist():
 
 def load_fashion_minst():
     # the data, shuffled and split between train and test sets
-    from tf.keras.datasets import fashion_mnist
+    from keras.datasets import fashion_mnist
     (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
