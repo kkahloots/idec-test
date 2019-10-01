@@ -64,6 +64,8 @@ def make_reuters_data(data_dir):
     x = x.reshape((x.shape[0], x.size / x.shape[0]))
     np.save(join(data_dir, 'reutersidf10k.npy'), {'data': x, 'label': y})
 
+import tensorflow as tf
+import tensorflow_datasets as tfds
 
 def load_mnist():
     # the data, shuffled and split between train and test sets
@@ -76,8 +78,16 @@ def load_mnist():
     print('MNIST samples', x.shape)
     return x, y
 
-import tensorflow as tf
-import tensorflow_datasets as tfds
+def load_fashion_minst():
+    # the data, shuffled and split between train and test sets
+    from tf.keras.datasets import fashion_mnist
+    (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+    x = np.concatenate((x_train, x_test))
+    y = np.concatenate((y_train, y_test))
+    x = x.reshape((x.shape[0], -1))
+    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    print('Fashion MNIST samples', x.shape)
+    return x, y
 
 def load_CatsVsDogs():
     # the data, shuffled and split between train and test sets
