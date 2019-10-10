@@ -87,9 +87,9 @@ class IDEC(object):
         return (weight.T / weight.sum(1)).T
 
     def clustering(self, x, y=None,
-                   tol=1e-2,
+                   tol=1e-3,
                    update_interval=140,
-                   maxiter=2e4,
+                   maxiter=5e10,
                    save_dir='./results/idec'):
 
         print('Update interval', update_interval)
@@ -174,11 +174,11 @@ if __name__ == "__main__":
     parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k','cifar10','cifar100','fashion_minst'])
     parser.add_argument('--n_clusters', default=10, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
-    parser.add_argument('--maxiter', default=2e4, type=int)
+    parser.add_argument('--maxiter', default=5e10, type=int)
     parser.add_argument('--gamma', default=0.1, type=float,
                         help='coefficient of clustering loss')
     parser.add_argument('--update_interval', default=140, type=int)
-    parser.add_argument('--tol', default=0.01, type=float)
+    parser.add_argument('--tol', default=0.001, type=float)
     parser.add_argument('--ae_weights', default=None, help='This argument must be given')
     parser.add_argument('--save_dir', default='results/idec')
     args = parser.parse_args()
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         x, y = load_reuters('data/reuters')
 
     # prepare the IDEC model
-    idec = IDEC(dims=[x.shape[-1], 500, 500, 1000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
+    idec = IDEC(dims=[x.shape[-1], 500, 500, 2000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
     idec.initialize_model(ae_weights=args.ae_weights, gamma=args.gamma, optimizer=optimizer)
     plot_model(idec.model, to_file='idec_model.png', show_shapes=True)
     idec.model.summary()
