@@ -206,7 +206,7 @@ if __name__ == "__main__":
         x, y = load_reuters('data/reuters')
 
     # prepare the IDEC model
-    idec = IDEC(dims=[x.shape[-1], 500, 500, 2000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
+    idec = IDEC(dims=[x.shape[-1], 500, 500, 1000, 2], n_clusters=args.n_clusters, batch_size=args.batch_size)
     idec.initialize_model(ae_weights=args.ae_weights, gamma=args.gamma, optimizer=optimizer)
     plot_model(idec.model, to_file='idec_model.png', show_shapes=True)
     idec.model.summary()
