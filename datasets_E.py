@@ -90,7 +90,7 @@ def load_cifar10():
 def load_cifar100():
     # the data, shuffled and split between train and test sets
     from keras.datasets import cifar100
-    (x_train, y_train), (x_test, y_test) = cifar100.load_data()
+    (x_train, y_train), (x_test, y_test) = cifar100.load_data(label_mode='fine')
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
@@ -107,7 +107,7 @@ def load_fashion_mnist():
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
     x = np.divide(x, 50)  # normalize as it does in DEC paper
-    print('MNIST samples', x.shape)
+    print('FASHION MNIST samples', x.shape)
     return x, y
 
 def load_usps(data_path='./data/usps'):
