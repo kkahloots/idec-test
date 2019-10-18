@@ -89,7 +89,7 @@ class IDEC(object):
     def clustering(self, x, y=None,
                    tol=1e-3,
                    update_interval=140,
-                   maxiter=5e10,
+                   maxiter=2e10,
                    save_dir='./results/idec'):
 
         print('Update interval', update_interval)
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k','cifar10','cifar100','fashion_minst'])
     parser.add_argument('--n_clusters', default=10, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
-    parser.add_argument('--maxiter', default=5e10, type=int)
+    parser.add_argument('--maxiter', default=2e10, type=int)
     parser.add_argument('--gamma', default=0.1, type=float,
                         help='coefficient of clustering loss')
     parser.add_argument('--update_interval', default=140, type=int)
@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
     # load dataset
     optimizer = SGD(lr=0.1, momentum=0.99)
-    from datasets import load_mnist, load_reuters, load_usps
+    from datasets import load_mnist, load_reuters, load_usps, load_cifar10, load_cifar100, load_fashion_mnist
 
     if args.dataset == 'mnist':  # recommends: n_clusters=10, update_interval=140
         x, y = load_mnist()
