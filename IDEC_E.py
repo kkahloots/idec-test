@@ -197,8 +197,8 @@ if __name__ == "__main__":
     elif args.dataset == 'cifar100':  # recommends: n_clusters=100, update_interval=140
         x, y = load_cifar100()
         optimizer = 'adam'
-    elif args.dataset == 'mnist_fashion':  # recommends: n_clusters=10, update_interval=140
-        x, y = load_mnist_fashion0()
+    elif args.dataset == 'fashion_mnist':  # recommends: n_clusters=10, update_interval=140
+        x, y = load_fashion_mnist()
         optimizer = 'adam'
     elif args.dataset == 'usps':  # recommends: n_clusters=10, update_interval=30
         x, y = load_usps('data/usps')
