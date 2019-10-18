@@ -72,7 +72,7 @@ def load_mnist():
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
-    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    x = np.divide(x, 50)  # normalize as it does in DEC paper
     print('MNIST samples', x.shape)
     return x, y
     
@@ -83,7 +83,7 @@ def load_cifar10():
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
-    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    x = np.divide(x, 50)  # normalize as it does in DEC paper
     print('CIFAR10 samples', x.shape)
     return x, y
     
@@ -94,7 +94,7 @@ def load_cifar100():
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
-    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    x = np.divide(x, 50)  # normalize as it does in DEC paper
     print('CIFAR100 samples', x.shape)
     return x, y
     
@@ -106,7 +106,7 @@ def load_fashion_mnist():
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
-    x = np.divide(x, 50.)  # normalize as it does in DEC paper
+    x = np.divide(x, 50)  # normalize as it does in DEC paper
     print('MNIST samples', x.shape)
     return x, y
 
