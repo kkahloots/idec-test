@@ -90,7 +90,7 @@ def load_cifar10():
 def load_cifar100():
     # the data, shuffled and split between train and test sets
     from keras.datasets import cifar100
-    (x_train, y_train), (x_test, y_test) = cifar100.load_data(label_mode='fine')
+    (x_train, y_train), (x_test, y_test) = cifar100.load_data()
     x = np.concatenate((x_train, x_test))
     y = np.concatenate((y_train, y_test))
     x = x.reshape((x.shape[0], -1))
