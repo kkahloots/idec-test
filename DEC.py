@@ -277,10 +277,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='train',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k'])
+    parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k','cifar10','cifar100','fashion_minst'])
     parser.add_argument('--n_clusters', default=10, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
-    parser.add_argument('--maxiter', default=5e10, type=int)
+    parser.add_argument('--maxiter', default=2e10, type=int)
     parser.add_argument('--gamma', default=0.1, type=float,
                         help='coefficient of clustering loss')
     parser.add_argument('--update_interval', default=140, type=int)
@@ -291,13 +291,22 @@ if __name__ == "__main__":
     print(args)
 
     # load dataset
-    from datasets import load_mnist, load_reuters, load_usps
+    from datasets import load_mnist, load_reuters, load_usps, load_cifar10, load_cifar100, load_fashion_mnist
     if args.dataset == 'mnist':  # recommends: n_clusters=10, update_interval=140
         x, y = load_mnist()
     elif args.dataset == 'usps':  # recommends: n_clusters=10, update_interval=30
         x, y = load_usps('data/usps')
     elif args.dataset == 'reutersidf10k':  # recommends: n_clusters=4, update_interval=20
         x, y = load_reuters('data/reuters')
+    elif args.dataset == 'cifar10':  # recommends: n_clusters=10, update_interval=140
+        x, y = load_cifar10()
+        #optimizer = 'adam'
+    elif args.dataset == 'cifar100':  # recommends: n_clusters=100, update_interval=140
+        x, y = load_cifar100()
+        #optimizer = 'adam'
+    elif args.dataset == 'fashion_mnist':  # recommends: n_clusters=10, update_interval=140
+        x, y = load_fashion_mnist()
+        #optimizer = 'adam'
 
     # prepare the DEC model
     dec = DEC(dims=[x.shape[-1], 500, 500, 2000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
