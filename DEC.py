@@ -195,7 +195,7 @@ class DEC(object):
     def clustering(self, x, y=None,
                    tol=1e-3,
                    update_interval=140,
-                   maxiter=5e10,
+                   maxiter=2e10,
                    save_dir='./results/dec'):
 
         print('Update interval', update_interval)
@@ -309,7 +309,7 @@ if __name__ == "__main__":
         #optimizer = 'adam'
 
     # prepare the DEC model
-    dec = DEC(dims=[x.shape[-1], 500, 500, 2000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
+    dec = DEC(dims=[x.shape[-1], 500, 500, 2000, 2], n_clusters=args.n_clusters, batch_size=args.batch_size)
 
     dec.initialize_model(optimizer=SGD(lr=0.01, momentum=0.9),
                          ae_weights=args.ae_weights)
