@@ -89,7 +89,7 @@ class IDEC(object):
     def clustering(self, x, y=None,
                    tol=1e-3,
                    update_interval=140,
-                   maxiter=2e10,
+                   maxiter=2e5,
                    save_dir='./results/idec'):
 
         print('Update interval', update_interval)
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k','cifar10','cifar100','fashion_minst'])
     parser.add_argument('--n_clusters', default=10, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
-    parser.add_argument('--maxiter', default=2e10, type=int)
+    parser.add_argument('--maxiter', default=2e5, type=int)
     parser.add_argument('--gamma', default=0.1, type=float,
                         help='coefficient of clustering loss')
     parser.add_argument('--update_interval', default=140, type=int)
