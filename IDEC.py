@@ -47,7 +47,7 @@ class IDEC(object):
         self.pretrain_epochs = pretrain_epochs
         self.autoencoder = autoencoder(self.dims)
 
-    def pretrain(self, x, batch_size=256, epochs=200, optimizer='adam'):
+    def pretrain(self, x, batch_size=256, epochs=2000, optimizer='adam'):
         print('...Pretraining...')
         self.autoencoder.compile(loss='mse', optimizer=optimizer)  # SGD(lr=0.01, momentum=0.9),
         self.autoencoder.fit(x, x, batch_size=batch_size, epochs=epochs)
@@ -89,7 +89,7 @@ class IDEC(object):
     def clustering(self, x, y=None,
                    tol=1e-3,
                    update_interval=140,
-                   maxiter=2e5,
+                   maxiter=4e5,
                    save_dir='./results/idec'):
 
         print('Update interval', update_interval)
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     parser.add_argument('dataset', default='mnist', choices=['mnist', 'usps', 'reutersidf10k','cifar10','cifar100','fashion_minst'])
     parser.add_argument('--n_clusters', default=10, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
-    parser.add_argument('--maxiter', default=2e5, type=int)
+    parser.add_argument('--maxiter', default=4e5, type=int)
     parser.add_argument('--gamma', default=0.1, type=float,
                         help='coefficient of clustering loss')
     parser.add_argument('--update_interval', default=140, type=int)
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         x, y = load_reuters('data/reuters')
 
     # prepare the IDEC model
-    idec = IDEC(dims=[x.shape[-1], 500, 500, 2000, 2], n_clusters=args.n_clusters, batch_size=args.batch_size)
+    idec = IDEC(dims=[x.shape[-1], 500, 500, 2000, 10], n_clusters=args.n_clusters, batch_size=args.batch_size)
     idec.initialize_model(ae_weights=args.ae_weights, gamma=args.gamma, optimizer=optimizer)
     plot_model(idec.model, to_file='idec_model.png', show_shapes=True)
     idec.model.summary()
